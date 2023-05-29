@@ -1,13 +1,15 @@
-﻿using ReleaseNameVerifier;
-using ReleaseNameVerifier.Properties;
+﻿using ReleaseNameVerifier.Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ReleaseHandle;
 
-namespace releaseNameVerifyer
+namespace ReleaseNameVerifier
 {
     public partial class ReleaseNameVerifier : Form
     {
@@ -84,15 +86,16 @@ namespace releaseNameVerifyer
             return string.Empty;
         }
 
-/*
-        private string ProperNaming(string release)
+        // Makes the background gradient.
+        // Code found here: https://www.daveoncsharp.com/2009/09/how-to-paint-a-gradient-background-for-your-forms/
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (Regex.IsMatch(release, "\bBluRay\b"))
-            {
-
-            }
+            using LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle,
+                                                                       ColorTranslator.FromHtml("#181818"),
+                                                                       ColorTranslator.FromHtml("#6b6b6b"),
+                                                                       60F);
+            e.Graphics.FillRectangle(brush, ClientRectangle);
         }
-*/
         private void TxtRelease_DragEnter(object sender, DragEventArgs e)
         {
             // Handle the drag and drop enter (when user drags an item over the textbox).
@@ -161,29 +164,32 @@ namespace releaseNameVerifyer
 
         private void BtnCheck_Click(object sender, EventArgs e)
         {
+            
             // Check if the textbox contains text.
             if (string.IsNullOrEmpty(txtRelease.Text) == false)
             {
+               
                 // Get the release name from the textbox.
                 string releaseName = txtRelease.Text;
 
                 // First we check for illegal chars.
-                if (string.IsNullOrEmpty(CheckForIllegalChars(releaseName)) == false)
+                if (InvalidChars.Check(releaseName) == false)
                 {
                     // If there was an illegal character, we update the result text.
-                    lblResult.Text = CheckForIllegalChars(releaseName);
+                    lblResult.Text = $@"Failed validation, it contains: {InvalidChars.Contains}{Environment.NewLine}which is not allowed in a release name!";
 
                     // Set the validate image to no (X).
                     imgValidated.Image = Resources.imgno;
                 }
 
                 // If there wasn't any illegal chars, we check for proper casing.
-                else if (string.IsNullOrEmpty(CheckProperCasing(releaseName)) == false)
+                else if (ProperCasing.Check(releaseName) == false)
                 {
                     // Some thing wasn't proper cased.
 
+                    lblResult.ForeColor = Color.Red;
                     // Update the result text.
-                    lblResult.Text = CheckProperCasing(releaseName);
+                    lblResult.Text = $@"Failed validation, it contains {ProperCasing.Contains}{Environment.NewLine}but the proper naming is: {ProperCasing.Correct}";
 
                     // Set the validate image to no (X).
                     imgValidated.Image = Resources.imgno;
@@ -192,6 +198,7 @@ namespace releaseNameVerifyer
                 // If we didn't get any hits.
                 else
                 {
+                    lblResult.ForeColor = Color.Green;
                     // Update the result text.
                     lblResult.Text = "Release name is validated OK";
 
@@ -212,7 +219,7 @@ namespace releaseNameVerifyer
         {
             // Clear result text.
             lblResult.Text = string.Empty;
-
+         
             // Clear textbox text.
             txtRelease.Text = string.Empty;
 

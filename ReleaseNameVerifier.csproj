@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainsAllInfo.cs" />
+    <Compile Include="ContainsREMUX.cs" />
     <Compile Include="Form\ValidateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,8 +79,13 @@
     <Compile Include="Form\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetReleaseType.cs" />
+    <Compile Include="InvalidChars.cs" />
+    <Compile Include="LanguagesHelper.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProperCasing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReleaseTypeHelper.cs" />
     <EmbeddedResource Include="Form\ValidateForm.resx">
       <DependentUpon>ValidateForm.cs</DependentUpon>
     </EmbeddedResource>

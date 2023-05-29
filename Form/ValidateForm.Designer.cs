@@ -1,4 +1,4 @@
-﻿namespace releaseNameVerifyer
+﻿namespace ReleaseNameVerifier
 {
     partial class ReleaseNameVerifier
     {
@@ -48,17 +48,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(11, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.Size = new System.Drawing.Size(116, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Release name:";
             // 
             // txtRelease
             // 
             this.txtRelease.AllowDrop = true;
-            this.txtRelease.BackColor = System.Drawing.Color.SkyBlue;
+            this.txtRelease.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.txtRelease.ForeColor = System.Drawing.Color.White;
             this.txtRelease.Location = new System.Drawing.Point(15, 25);
             this.txtRelease.Name = "txtRelease";
             this.txtRelease.Size = new System.Drawing.Size(452, 20);
@@ -69,7 +72,7 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnBrowse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(255)))));
             this.btnBrowse.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.btnBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Navy;
@@ -85,7 +88,7 @@
             // 
             // btnCheck
             // 
-            this.btnCheck.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(255)))));
             this.btnCheck.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.btnCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnCheck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Navy;
@@ -102,16 +105,17 @@
             // 
             this.lblResult.BackColor = System.Drawing.Color.Transparent;
             this.lblResult.CausesValidation = false;
-            this.lblResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResult.ForeColor = System.Drawing.Color.Navy;
-            this.lblResult.Location = new System.Drawing.Point(42, 80);
+            this.lblResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.ForeColor = System.Drawing.Color.Red;
+            this.lblResult.Location = new System.Drawing.Point(73, 82);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(386, 61);
+            this.lblResult.Size = new System.Drawing.Size(355, 61);
             this.lblResult.TabIndex = 4;
+            this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClear
             // 
-            this.btnClear.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(255)))));
             this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.btnClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Navy;
@@ -126,6 +130,7 @@
             // 
             // imgValidated
             // 
+            this.imgValidated.BackColor = System.Drawing.Color.Transparent;
             this.imgValidated.Location = new System.Drawing.Point(434, 80);
             this.imgValidated.Name = "imgValidated";
             this.imgValidated.Size = new System.Drawing.Size(64, 64);
@@ -135,16 +140,18 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 80);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(41, 64);
+            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
             // ImgInfo
             // 
+            this.ImgInfo.BackColor = System.Drawing.Color.Transparent;
             this.ImgInfo.Image = ((System.Drawing.Image)(resources.GetObject("ImgInfo.Image")));
             this.ImgInfo.Location = new System.Drawing.Point(486, 3);
             this.ImgInfo.Name = "ImgInfo";
@@ -158,7 +165,7 @@
             this.AcceptButton = this.btnCheck;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(514, 150);
             this.Controls.Add(this.ImgInfo);
             this.Controls.Add(this.btnClear);

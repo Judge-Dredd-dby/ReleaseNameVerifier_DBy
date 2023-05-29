@@ -35,9 +35,9 @@
             // 
             // RtbInfo
             // 
-            this.RtbInfo.BackColor = System.Drawing.Color.SkyBlue;
+            this.RtbInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.RtbInfo.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.RtbInfo.ForeColor = System.Drawing.Color.Navy;
+            this.RtbInfo.ForeColor = System.Drawing.Color.White;
             this.RtbInfo.Location = new System.Drawing.Point(12, 12);
             this.RtbInfo.Name = "RtbInfo";
             this.RtbInfo.ReadOnly = true;
@@ -47,7 +47,7 @@
             // 
             // BtnInfoOK
             // 
-            this.BtnInfoOK.BackColor = System.Drawing.Color.SkyBlue;
+            this.BtnInfoOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(255)))));
             this.BtnInfoOK.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.BtnInfoOK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.BtnInfoOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Navy;
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.BtnInfoOK);
             this.Controls.Add(this.RtbInfo);
