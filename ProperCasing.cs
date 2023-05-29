@@ -26,8 +26,8 @@ namespace ReleaseHandle
             // List of proper cased names
             List<string> properCaseList = new List<string>() {
                 "DC", "HYBRiD", "REMASTERED", "EXTENDED", "UNRATED", "REMUX", "BluRay", "HDDVD", "WEB-DL",
-                "WEBRip", "HDTV", "PAL", "NTSC", "DVDR","UHD-BluRay","DV.HDR", "HDR10", "HDR", "DVDRip", "AVC", "DTS-HD.MA", "VC-1", "TrueHD", "TrueHD.Atmos",
-                "HDRip", "XviD", "DivX", "H.264", "x264","x265", "H.265", "HEVC", "UHDTV" , "DV" , "AAC" , "DD" , "DDP" , "Atmos" , "DTS" , "REPACK"
+                "WEBRip", "HDTV", "PAL", "NTSC", "DVDR","UHD-BluRay","DV.HDR", "HDR10", "HDR", "DVDRip", "AVC", "DTS","DTS-HD.MA", "VC-1", "TrueHD", "TrueHD.Atmos",
+                "HDRip", "XviD", "DivX", "H.264", "x264","x265", "H.265", "HEVC", "UHDTV" , "DV" , "AAC" , "DD" , "DDP" , "Atmos" , "REPACK"
             };
 
                 properCaseList.AddRange(LanguagesHelper.LanguagesOptions);

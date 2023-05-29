@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿// Ignore Spelling: Codec
+
+using ReleaseNameVerifier;
+using System.Text.RegularExpressions;
 
 namespace ReleaseHandle
 {
@@ -16,7 +19,7 @@ namespace ReleaseHandle
 
         public static bool CheckType(string releaseName)
         {
-            string pattern = @"\bBluRay\b|\bWEB-DL\b|\bWEBRip\b|\bHDTV\b|\bHDDVD\b|\bDVDRip\b";
+            string pattern = ReleaseTypeHelper.GetRegexPattern();
             Regex regex = new Regex(pattern, RegexOptions.CultureInvariant);
             Match match = regex.Match(releaseName);
 

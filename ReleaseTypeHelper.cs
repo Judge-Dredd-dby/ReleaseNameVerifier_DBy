@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ReleaseNameVerifier
@@ -47,6 +49,12 @@ namespace ReleaseNameVerifier
             "iTunes.WEBRip"
             // Add more release types as needed
         };
+            
+        }
+        public static string GetRegexPattern()
+        {
+            List<string> patterns = GetReleaseTypes().Select(option => $@"\b{Regex.Escape(option)}\b").ToList();
+            return string.Join("|", patterns);
         }
     }
 

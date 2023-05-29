@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ReleaseHandle;
+using System.Media;
 
 namespace ReleaseNameVerifier
 {
@@ -17,75 +18,7 @@ namespace ReleaseNameVerifier
         {
             InitializeComponent();
         }
-
-        private string CheckForIllegalChars(string releaseName)
-        {
-            // Check for invalid chars
-            string pattern = @"[^+_\w\.-]|\.{2,}|(?i)\bLiMiTED\b|(?i)[æøå]";
-
-            Regex regexp = new Regex(pattern);
-            Match match = regexp.Match(releaseName);
-
-            // Check if there is a match.
-            if (match.Success)
-            {
-                // Switch through the match.
-                return match.Value switch
-                {
-                    // If the match contains one or more spaces.
-                    var spaces when new Regex(@"\s").IsMatch(spaces) => "The release contains one or more spaces.",
-                    // If the match contains limited.
-                    var limited when new Regex(@"\bLiMiTED\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant).IsMatch(limited) => "The release contains LiMiTED, this is an irrelevant information and should be removed.",
-                    // Else if the match contains, an illegal character.
-                    _ => $"The release contains { match.Value } which is not allowed in a torrent name",
-                };
-            }
-            return string.Empty;
-        }
-
-        private string CheckProperCasing(string releaseName)
-        {
-            // Check the release name for proper casing.
-
-            // List of proper naming to check.
-            var namingCheckList = new List<string>() {"Retail", "Custom", "DKsubs", "DANiSH", "NORDiC", "MULTi", "DK.ENG", "DC",
-                "REMASTERED", "EXTENDED", "UNRATED", "REMUX", "BluRay", "HDDVD", "WEB-DL", "WEBRip", "HDTV", "PAL", "NTSC", "DVDR",
-                "DVDRip", "AVC", "DTS-HD.MA", "VC-1", "TrueHD", "TrueHD.Atmos", "HDRip", "XviD", "H.264", "H.265", "x264", "x265" };
-
-            // Create a pattern string, from the check list.
-            StringBuilder stringBuilder = new StringBuilder();
-
-            // Loop through the list items and create the pattern string.
-            foreach (var item in namingCheckList)
-            {
-                // Here we create a regex pattern string by append a leading and trailing \b and add a | to separate the strings
-                // also if a "." exists, we replace it with \. which is the escape char in a regex pattern.
-                stringBuilder.Append(@"\b").Append(Regex.Replace(item, @"\.", @"\.")).Append(@"\b").Append("|");
-            }
-            Console.WriteLine("StringBuilder string = " + stringBuilder.ToString().TrimEnd('|'));
-            // Create the regex with ignoreCase and CultureInvarient, using the pattern list where we strip the trailing "|".
-            Regex regex = new Regex(stringBuilder.ToString().TrimEnd('|'), RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-
-            // Get a collection of matches, that we can search through.
-            MatchCollection matchCollection = regex.Matches(releaseName);
-
-            // Loop through the matches and compare them to the naming check list.
-            for (int i = 0; i < matchCollection.Count; i++)
-            {
-                int index = namingCheckList.FindIndex(result => result.StartsWith(matchCollection[i].Value, StringComparison.InvariantCultureIgnoreCase));
-
-                // Check if the match is different from the proper casing list.
-                if (namingCheckList[index] != matchCollection[i].Value)
-                {
-                    // The result was different, so we have an invalid casing.
-                    string contains = $"The release name contains { matchCollection[i].Value } but the proper naming is { namingCheckList[index] }";
-
-                    return contains;
-                }
-            }
-            return string.Empty;
-        }
-
+       
         // Makes the background gradient.
         // Code found here: https://www.daveoncsharp.com/2009/09/how-to-paint-a-gradient-background-for-your-forms/
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -164,62 +97,66 @@ namespace ReleaseNameVerifier
 
         private void BtnCheck_Click(object sender, EventArgs e)
         {
-            
+
             // Check if the textbox contains text.
-            if (string.IsNullOrEmpty(txtRelease.Text) == false)
-            {
-               
-                // Get the release name from the textbox.
-                string releaseName = txtRelease.Text;
-
-                // First we check for illegal chars.
-                if (InvalidChars.Check(releaseName) == false)
-                {
-                    // If there was an illegal character, we update the result text.
-                    lblResult.Text = $@"Failed validation, it contains: {InvalidChars.Contains}{Environment.NewLine}which is not allowed in a release name!";
-
-                    // Set the validate image to no (X).
-                    imgValidated.Image = Resources.imgno;
-                }
-
-                // If there wasn't any illegal chars, we check for proper casing.
-                else if (ProperCasing.Check(releaseName) == false)
-                {
-                    // Some thing wasn't proper cased.
-
-                    lblResult.ForeColor = Color.Red;
-                    // Update the result text.
-                    lblResult.Text = $@"Failed validation, it contains {ProperCasing.Contains}{Environment.NewLine}but the proper naming is: {ProperCasing.Correct}";
-
-                    // Set the validate image to no (X).
-                    imgValidated.Image = Resources.imgno;
-                }
-
-                // If we didn't get any hits.
-                else
-                {
-                    lblResult.ForeColor = Color.Green;
-                    // Update the result text.
-                    lblResult.Text = "Release name is validated OK";
-
-                    // Set the validate image to yes (V).
-                    imgValidated.Image = Resources.imgyes;
-                }
-            }
-
-            // If the textbox is empty.
-            else
+            if (string.IsNullOrEmpty(txtRelease.Text) == true)
             {
                 // Update the result text.
+                lblResult.ForeColor = Color.Red;
                 lblResult.Text = "No release loaded!";
+                SystemSounds.Beep.Play();
+
+                //PlaySoundFromBinary.Play(TadaSoundInBinaryFormat.Tada());
+                return;
             }
+            // Get the release name from the textbox.
+            string releaseName = txtRelease.Text;
+
+            // First we check for illegal chars.
+            if (InvalidChars.Check(releaseName) == false)
+            {
+                // If there was an illegal character, we update the result text.
+                lblResult.ForeColor = Color.Red;
+                lblResult.Text = $@"Failed validation, it contains: {InvalidChars.Contains}{Environment.NewLine}which is not allowed in a release name!";
+
+                // Set the validate image to no (X).
+                imgValidated.Image = Resources.imgno;
+                SystemSounds.Beep.Play();
+                return;
+            }
+
+            // If there wasn't any illegal chars, we check for proper casing.
+            if (ProperCasing.Check(releaseName) == false)
+            {
+                // Some thing wasn't proper cased.
+
+                lblResult.ForeColor = Color.Red;
+                // Update the result text.
+                lblResult.Text = $@"Failed validation, it contains {ProperCasing.Contains}{Environment.NewLine}but the proper naming is: {ProperCasing.Correct}";
+
+                // Set the validate image to no (X).
+                imgValidated.Image = Resources.imgno;
+                SystemSounds.Beep.Play();
+                return;
+            }
+
+            // If we didn't get any hits.
+            lblResult.ForeColor = Color.Green;
+            // Update the result text.
+            lblResult.Text = "Release name is validated OK";
+
+            // Set the validate image to yes (V).
+            imgValidated.Image = Resources.imgyes;
+            PlaySoundFromBinary.Play(TadaSoundInBinaryFormat.Tada());
+
+
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
         {
             // Clear result text.
             lblResult.Text = string.Empty;
-         
+
             // Clear textbox text.
             txtRelease.Text = string.Empty;
 
